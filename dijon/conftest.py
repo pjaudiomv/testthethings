@@ -1,5 +1,4 @@
 import pytest
-import os
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
@@ -15,7 +14,7 @@ def get_db_url():
     db_user = settings.get("DBUSER", "root")
     db_pass = settings.get("DBPASSWORD", "dijon")
     db_host = settings.get("DBHOST", "0.0.0.0")
-    db_port = settings.get("DBPORT", os.environ.get('DBPORT'),)
+    db_port = settings.get("DBPORT", 3306)
     db_name = settings.get("DBNAME", "dijontest")
     return f"mysql+mysqlconnector://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
 
