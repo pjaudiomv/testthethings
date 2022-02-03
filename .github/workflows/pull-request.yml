@@ -47,9 +47,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: 'ubuntu:20.04'
+      image: 'gcr.io/kaniko-project/executor:debug'
     name: Build image
     steps:
+      - uses: actions/checkout@v2
       - name: Build image
         run: |
           echo hello
+          mkdir -p /kaniko/.docker
+          echo "{\"credsStore\":\"ecr-login\"}" > /kaniko/.docker/config.json
+          /kaniko/executor \
+            --context=/ \
+            --dockerfile=Dockerfile \
+            --destination dijon:mustard \
+            --no-push
