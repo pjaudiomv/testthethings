@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mariadb:
+    volumes:
+       - /opt/dijon/mysql:/var/lib/mysql
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  dijon:
+    image: bmltenabled/dijon
+    environment:
+      - GUNICORN_CMD_ARGS=--forwarded-allow-ips='*'
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.fastapi.rule=Host(`dijon.jrb.lol`)
+      - traefik.http.routers.fastapi.tls=true
+      - traefik.http.routers.fastapi.tls.certresolver=letsencrypt
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  traefik:
+    image: traefik:v2.6
+    command:
+      - --accessLog=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.email=jon.braswell@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+      - --certificatesresolvers.letsencrypt.acme.httpChallenge.entrypoint=web
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "/opt/dijon/letsencrypt:/letsencrypt"
+    deploy:
+      restart_policy:
+        condition: on-failure

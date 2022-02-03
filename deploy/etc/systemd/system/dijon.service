@@ -1,0 +1,14 @@
+[Unit]
+Description=dijon
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+WorkingDirectory=/opt/dijon/compose
+ExecStart=/opt/dijon/compose/up.sh
+ExecStop=/opt/dijon/compose/down.sh
+
+[Install]
+WantedBy=multi-user.target

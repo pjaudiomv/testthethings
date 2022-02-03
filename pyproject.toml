@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "dijon"
+version = "0.1.0"
+description = ""
+authors = ["Jonathan Braswell <jon.braswell@gmail.com>"]
+license = "GPL-3.0-only"
+
+[tool.poetry.scripts]
+dijon = "dijon.cli.cli:cli"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fastapi = "^0.70.0"
+SQLAlchemy = "^1.4.26"
+alembic = "^1.7.4"
+uvicorn = "^0.15.0"
+click = "^8.0.3"
+dynaconf = "^3.1.7"
+mysql-connector-python = "^8.0.27"
+requests = "^2.27.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+requests = "^2.26.0"
+SQLAlchemy-Utils = "^0.37.9"
+
+[tool.isort]
+lines_after_imports = 2
+line_length = 100
+skip_glob = ["dijon/alembic/*"]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.7.1
+    environment:
+      MARIADB_ROOT_PASSWORD: dijon
+      MARIADB_DATABASE: dijon
+      MARIADB_USER: dijon
+      MARIADB_PASSWORD: dijon
+    ports:
+      - 3306:3306
+
+  dijon:
+    image: dijon
+    environment:
+      - DYNACONF_DBUSER=dijon
+      - DYNACONF_DBPASSWORD=dijon
+      - DYNACONF_DBNAME=dijon
+      - DYNACONF_DBHOST=mariadb
+      - DYNACONF_DBPORT=3306
+    expose:
+      - 80
