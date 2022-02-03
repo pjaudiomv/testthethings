@@ -50,10 +50,9 @@ jobs:
       image: 'gcr.io/kaniko-project/executor:debug'
     name: Build image
     steps:
+      - uses: actions/checkout@v1
       - name: Build image
         run: |
-          pwd
-          ls -a
           mkdir -p /kaniko/.docker
           echo "{\"credsStore\":\"ecr-login\"}" > /kaniko/.docker/config.json
           /kaniko/executor \
