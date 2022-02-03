@@ -8,15 +8,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
     services:
-      mysql:
+      mariadb:
         image: mariadb
+        ports:
+          - 33306
         env:
           MARIADB_ROOT_PASSWORD: dijon
           MARIADB_DATABASE: dijon
           MARIADB_USER: dijon
           MARIADB_PASSWORD: dijon
-        ports:
-          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python 3.9
