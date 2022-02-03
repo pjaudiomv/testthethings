@@ -53,11 +53,11 @@ jobs:
       - name: Build image
         run: |
           pwd
-          echo hello
+          ls
           mkdir -p /kaniko/.docker
           echo "{\"credsStore\":\"ecr-login\"}" > /kaniko/.docker/config.json
           /kaniko/executor \
-            --context=/ \
+            --context=/__w/testthethings/testthethings/ \
             --dockerfile=Dockerfile \
             --destination dijon:mustard \
             --no-push
