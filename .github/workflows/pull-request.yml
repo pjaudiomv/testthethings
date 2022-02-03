@@ -41,5 +41,7 @@ jobs:
           pip install poetry
           poetry install
       - name: Run Tests
+        env:
+          DBPORT: ${{ job.services.mariadb.ports[3306] }}
         run: |
           make test
