@@ -45,6 +45,7 @@ jobs:
 #        run: |
 #          make test
   build:
+    runs-on: ubuntu-latest
     container:
       image: 'ubuntu:20.04'
     name: Build image
