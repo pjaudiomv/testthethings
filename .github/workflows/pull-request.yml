@@ -5,21 +5,24 @@ on:
     branches: [ 'main' ]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     services:
       mariadb:
-        image: mariadb
+        image: mariadb:latest
         ports:
-          - 33306
+          - 3306
         env:
-          MARIADB_ROOT_PASSWORD: dijon
-          MARIADB_DATABASE: dijon
-          MARIADB_USER: dijon
-          MARIADB_PASSWORD: dijon
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=10s --health-retries=10
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
+
       - name: Verify MariaDB connection
         env:
           PORT: ${{ job.services.mariadb.ports[3306] }}
@@ -27,15 +30,7 @@ jobs:
           while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
             sleep 1
           done
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.9
-      - name: Install dependencies
+
+      - name: Test
         run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install
-      - name: Run Tests
-        run: |
-          make test
+          echo hello
