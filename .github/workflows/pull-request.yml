@@ -51,6 +51,8 @@ jobs:
     name: Build image
     steps:
       - uses: actions/checkout@v1
+      with:
+        entrypoint: ""
       - name: Build image
         run: |
           mkdir -p /kaniko/.docker
