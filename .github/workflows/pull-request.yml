@@ -35,14 +35,12 @@ jobs:
           path: ~/.local
           key: dotlocal-${{ runner.os }}-${{ hashFiles('.github/workflows/pull-request.yml') }}
 
-
       - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v2.1.6
         with:
           path: deployer/.venv
           key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/pull-request.yml') }}
-
 
       - name: Install dependencies
         run: |
