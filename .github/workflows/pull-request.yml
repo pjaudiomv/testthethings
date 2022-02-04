@@ -22,7 +22,7 @@ jobs:
           push: true
           tags: bmltenabled/dijon:${{ steps.vars.outputs.sha_short }}
           cache: true
-          cache-repository: ${{ github.repository }}/cache
+          cache-repository: bmltenabled/dijon/cache
 
 
 #jobs:
