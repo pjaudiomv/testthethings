@@ -17,7 +17,7 @@ jobs:
       - uses: int128/kaniko-action@v1
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}/${{ github.ref }}
+          tags: ghcr.io/${{ github.repository }}/$(git rev-parse --short HEAD)
           cache: true
           cache-repository: ghcr.io/${{ github.repository }}/cache
 #  tests:
