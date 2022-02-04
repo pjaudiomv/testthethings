@@ -1,9 +1,8 @@
 name: Conditional
 
 on:
-  push:
-    branches:
-      - master
+  pull_request:
+    branches: [ 'main' ]
 
 jobs:
   job1:
