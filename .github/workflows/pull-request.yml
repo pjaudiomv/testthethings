@@ -20,7 +20,7 @@ jobs:
       - uses: int128/kaniko-action@v1
         with:
           push: true
-          tags: ghcr.io/${{ github.repository }}/${{ steps.vars.outputs.sha_short }}
+          tags: ghcr.io/${{ github.repository }}:${{ steps.vars.outputs.sha_short }}
           cache: true
           cache-repository: ghcr.io/${{ github.repository }}/cache
 #  tests:
