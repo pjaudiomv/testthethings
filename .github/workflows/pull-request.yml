@@ -23,7 +23,7 @@ jobs:
           push: true
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
-          cache: false
+          cache: true
           cache-repository: ghcr.io/${{ github.repository }}/cache
 #  tests:
 #    runs-on: ubuntu-latest
